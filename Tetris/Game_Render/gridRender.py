@@ -4,7 +4,7 @@ from game_state.activePiece import colour
 def gridRender(gridState):
         """ Render the grid: function which renders the grid based on the current gridState"""
         #white background
-        gridState.displaySurf.fill((255,255,255))
+        gridState.displaySurf.fill((220,220,220))
         #black grid
         for x in range(0,gridState.gridShape[0]*gridState.cellSize, gridState.cellSize):
             for y in range(0, gridState.gridShape[1]*gridState.cellSize, gridState.cellSize):
