@@ -1,7 +1,7 @@
 import pygame, random
 from Game_Render.gridRender import gridRender
-from Game_state.gridState import gridState
-from Game_state.activePiece import activePiece, Tetrominoes, colour
+from Game_State.gridState import gridState
+from Game_State.activePiece import activePiece, Tetrominoes, colour
 from User_Inputs.commands import receiveInputs, executeCommands
 
 

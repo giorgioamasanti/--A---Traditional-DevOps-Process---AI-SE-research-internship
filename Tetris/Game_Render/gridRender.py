@@ -1,5 +1,5 @@
 import pygame
-from Game_state.activePiece import colour
+from Game_State.activePiece import colour
 
 def gridRender(gridState):
         """ Render the grid: function which renders the grid based on the current gridState"""
@@ -16,5 +16,4 @@ def gridRender(gridState):
                 cell_contents = gridState.array[Y][X]
                 if cell_contents != 0:
                     pygame.draw.rect(gridState.displaySurf, colour[cell_contents], (X*gridState.cellSize,Y*gridState.cellSize,gridState.cellSize,gridState.cellSize) )
-
         pygame.display.update()
