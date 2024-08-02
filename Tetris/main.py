@@ -3,6 +3,8 @@ from game_render.gridRender import gridRender
 from game_state.gridState import gridState
 from game_state.activePiece import activePiece, Tetrominoes, active_colours
 from user_inputs.commands import receiveInputs, executeCommands
+from game_state.drop import dropperTimer
+#from game_state.drop import checkForDrop
 
 
 class main:
@@ -20,6 +22,8 @@ class main:
         self.activePiece = activePiece(random.choice(list(Tetrominoes.keys())), random.choice(list(active_colours.keys())), [4,4])
         #defining the commands list
         self.commands = []
+        #defining the dropper timer
+        self.dropperTimer = dropperTimer(dropInterval=0.5)
 
     
     def events(self):
@@ -29,6 +33,7 @@ class main:
 
     def update(self):
         """ Update game state """
+        self.dropperTimer.checkDrop(self.activePiece, self.gridState)
         self.gridState.updateGrid(self.activePiece)
 
     def render(self):
