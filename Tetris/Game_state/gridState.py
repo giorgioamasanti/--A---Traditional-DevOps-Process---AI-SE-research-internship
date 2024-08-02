@@ -12,8 +12,12 @@ class gridState:
         self.cellSize = cellSize
         #array to represent the grid cells
         self.array = [[0 for x in range(gridShape[0])] for y in range(gridShape[1])]
-        #array to represent the solidified cells
+        #array to represent the solidified cells - should contain "0" for an empty cell and a capital letter to represent a filled, solid cell
         self.solidArray = [[0 for x in range(gridShape[0])] for y in range(gridShape[1])]
+        
+        #testing solidified cells:
+        for i in range(15,20):
+            self.solidArray[i][5] = "R"
 
     def updateGrid(self, activePiece):
         """ Updating grid in 3 stages: 1) empty grid, 2) solid blocks, 3) active piece """

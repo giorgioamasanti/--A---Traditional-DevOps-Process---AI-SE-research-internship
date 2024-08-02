@@ -5,19 +5,6 @@ class collisionError(Exception):
         self.message = message
         super().__init__(self.message)  
 
-"""
-def tryExecuteCommands(command, replica_piece):
-    if command == "moveRight":
-        replica_piece.moveH(1)
-    elif command == "moveLeft":
-        replica_piece.moveH(-1)
-    elif command == "moveDown":
-        replica_piece.moveV(1)
-    elif command == "rotate":
-        replica_piece.rotate()
-    elif command == "spawn":
-        replica_piece.spawnNewPiece()
-"""
 
 def checkCollision(activePiece, gridState):
     """ Checks if a command would cause the active piece to go out of bounds or collide.
@@ -25,12 +12,20 @@ def checkCollision(activePiece, gridState):
     Returns false otherwise
     """
     #check for collision with the walls
-    if activePiece.coords[0] in range(0, gridState.gridShape[1]-activePiece.height+1) and activePiece.coords[1] in range(0, gridState.gridShape[0]-activePiece.width+1):
-        return False
-    else:
+    if not(activePiece.coords[0] in range(0, gridState.gridShape[1]-activePiece.height+1) and activePiece.coords[1] in range(0, gridState.gridShape[0]-activePiece.width+1)):
         print("Out of bounds detected")
         return True
-        #raise collisionError("Out of bounds")
+
+    #check for collision with solid blocks
+    for i in range(activePiece.width):
+        for j in range(activePiece.height):
+            if activePiece.shape[j][i] != 0 and gridState.solidArray[activePiece.coords[0]+j][activePiece.coords[1]+i] != 0:
+                print("Collided with block")
+                return True   
+     
+    #no collisions
+    return False
+
 
 """
     tryExecuteCommands(command, replica_piece)   #execute the command on the replica piece
