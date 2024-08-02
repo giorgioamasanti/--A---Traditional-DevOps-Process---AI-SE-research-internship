@@ -15,9 +15,6 @@ class gridState:
         #array to represent the solidified cells - should contain "0" for an empty cell and a capital letter to represent a filled, solid cell
         self.solidArray = [[0 for x in range(gridShape[0])] for y in range(gridShape[1])]
         
-        #testing solidified cells:
-        for i in range(15,20):
-            self.solidArray[i][5] = "R"
 
     def updateGrid(self, activePiece):
         """ Updating grid in 3 stages: 1) empty grid, 2) solid blocks, 3) active piece """
@@ -31,8 +28,8 @@ class gridState:
         #adding active piece
         for i in range(activePiece.width):
              for j in range(activePiece.height):
-                  if activePiece.shape[j][i] == 1:
-                     self.array[activePiece.coords[0]+j][activePiece.coords[1]+i] = activePiece.colour
+                if activePiece.shape[j][i] == 1:
+                    self.array[activePiece.coords[0]+j][activePiece.coords[1]+i] = activePiece.colour
         #print(f"Piece at {activePiece.coords}")
                  
         

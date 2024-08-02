@@ -19,7 +19,7 @@ class main:
         self.displaySurf = pygame.display.set_mode((self.gridShape[0]*self.cellSize, self.gridShape[1]*self.cellSize))
         #taking grid properties and defining an initial gridState
         self.gridState = gridState(self.gridShape, self.cellSize)
-        self.activePiece = activePiece(random.choice(list(Tetrominoes.keys())), random.choice(list(active_colours.keys())), [4,4])
+        self.activePiece = activePiece(random.choice(list(Tetrominoes.keys())), [4,4])
         #defining the commands list
         self.commands = []
         #defining the dropper timer
