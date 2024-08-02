@@ -1,4 +1,6 @@
 import pygame
+from game_state.collision import checkCollision
+import copy
 
 def receiveInputs(commands, activePiece):
     #take the inputs and put them into a commands list
@@ -11,20 +13,44 @@ def receiveInputs(commands, activePiece):
                 commands.append("moveRight")
             elif event.key == pygame.K_LEFT:
                 commands.append("moveLeft")
+            elif event.key == pygame.K_DOWN:
+                commands.append("moveDown")
             elif event.key == pygame.K_UP:
                 commands.append("rotate")
             elif event.key == pygame.K_s:
                 commands.append("spawn")
 
 
-def executeCommands(commands, activePiece):
+def executeCommands(commands, activePiece, gridState):
+    dummyPiece = copy.deepcopy(activePiece)
+    dummyGrid = copy.deepcopy(gridState)
+
     for c in commands:
         if c == "moveRight":
-            activePiece.moveH(1)
+            dummyPiece.moveH(1)
         elif c == "moveLeft":
-            activePiece.moveH(-1)
+            dummyPiece.moveH(-1)
+        elif c == "moveDown":
+            dummyPiece.moveV(1)
         elif c == "rotate":
-            activePiece.rotate()
+            dummyPiece.rotate()
         elif c == "spawn":
-            activePiece.spawnNewPiece()
+            dummyPiece.spawnNewPiece()
+
+        if checkCollision(dummyPiece, dummyGrid) == True:
+            print("=====collision detected, not executing command=====")
+        else:
+            print("+++ no collision detected, executing command +++")
+            if c == "moveRight":
+                activePiece.moveH(1)
+            elif c == "moveLeft":
+                activePiece.moveH(-1)
+            elif c == "moveDown":
+                activePiece.moveV(1)
+            elif c == "rotate":
+                activePiece.rotate()
+            elif c == "spawn":
+                activePiece.spawnNewPiece()
+
     commands.clear()
+

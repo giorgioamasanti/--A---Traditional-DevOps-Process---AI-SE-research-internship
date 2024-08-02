@@ -1,7 +1,7 @@
 import pygame, random
 from game_render.gridRender import gridRender
 from game_state.gridState import gridState
-from game_state.activePiece import activePiece, Tetrominoes, colour
+from game_state.activePiece import activePiece, Tetrominoes, active_colours
 from user_inputs.commands import receiveInputs, executeCommands
 
 
@@ -16,8 +16,8 @@ class main:
         self.cellSize = 36
         self.displaySurf = pygame.display.set_mode((self.gridShape[0]*self.cellSize, self.gridShape[1]*self.cellSize))
         #taking grid properties and defining an initial gridState
-        self.gridState = gridState(self.gridShape, self.cellSize, self.displaySurf)
-        self.activePiece = activePiece(random.choice(list(Tetrominoes.keys())), random.choice(list(colour.keys())), [4,4])
+        self.gridState = gridState(self.gridShape, self.cellSize)
+        self.activePiece = activePiece(random.choice(list(Tetrominoes.keys())), random.choice(list(active_colours.keys())), [4,4])
         #defining the commands list
         self.commands = []
 
@@ -25,7 +25,7 @@ class main:
     def events(self):
         """ Handle game events """
         receiveInputs(self.commands, self.activePiece)
-        executeCommands(self.commands, self.activePiece)
+        executeCommands(self.commands, self.activePiece, self.gridState)
 
     def update(self):
         """ Update game state """
@@ -34,7 +34,7 @@ class main:
     def render(self):
         """ Render game state """
         #renders the grid based on current grid state
-        gridRender(self.gridState)
+        gridRender(self.gridState, self.displaySurf)
         pygame.display.update()
 
     def run(self):
