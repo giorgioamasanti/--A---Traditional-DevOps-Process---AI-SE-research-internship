@@ -1,5 +1,5 @@
 import pygame
-from Game_State.activePiece import colour
+from game_state.activePiece import colour
 
 def gridRender(gridState):
         """ Render the grid: function which renders the grid based on the current gridState"""

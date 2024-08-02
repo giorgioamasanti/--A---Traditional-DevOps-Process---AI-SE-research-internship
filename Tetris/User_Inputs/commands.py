@@ -20,9 +20,9 @@ def receiveInputs(commands, activePiece):
 def executeCommands(commands, activePiece):
     for c in commands:
         if c == "moveRight":
-            activePiece.move(1)
+            activePiece.moveH(1)
         elif c == "moveLeft":
-            activePiece.move(-1)
+            activePiece.moveH(-1)
         elif c == "rotate":
             activePiece.rotate()
         elif c == "spawn":

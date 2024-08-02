@@ -1,8 +1,8 @@
 import pygame, random
-from Game_Render.gridRender import gridRender
-from Game_State.gridState import gridState
-from Game_State.activePiece import activePiece, Tetrominoes, colour
-from User_Inputs.commands import receiveInputs, executeCommands
+from game_render.gridRender import gridRender
+from game_state.gridState import gridState
+from game_state.activePiece import activePiece, Tetrominoes, colour
+from user_inputs.commands import receiveInputs, executeCommands
 
 
 class main:

@@ -55,9 +55,20 @@ class activePiece:
         self.colour = random.choice(list(colour.keys()))
         self.coords = [0,4] #spawn point
     
-    def move(self, direction):
-        #direction is -1 for left, 1 for right
+    def moveH(self, direction):
+        if direction not in [-1,1]:
+            raise ValueError("Direction must be -1 or 1")
+
+        #direction is: -1 for left, +1 for right
         self.coords[1] += direction
+
+    def moveV(self, direction):
+        if direction not in [-1,1]:
+            raise ValueError("Direction must be -1 or 1")
+        
+        #direction is: -1 for up, +1 for down
+        self.coords[0] += direction
+
 
 
 
