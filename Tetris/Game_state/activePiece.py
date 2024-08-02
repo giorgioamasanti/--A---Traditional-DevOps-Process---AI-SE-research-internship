@@ -27,7 +27,7 @@ class activePiece:
         self.width = len(self.shape[0])
         self.height = len(self.shape)
         self.colour = colour
-        self.coords = coords #e.g [0,4] is 0 rows down, 4 rows across - representing the top-left square of the shape
+        self.coords = coords #e.g [0,4] is 0 rows down, 4 columns across - representing the top-left square of the shape
     
     def __str__(self):
         """Print function (for debugging)"""

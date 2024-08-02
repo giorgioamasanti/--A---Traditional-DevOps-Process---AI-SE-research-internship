@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 
 
 import unittest
-from game_state.activePiece import activePiece, Tetrominoes, colour
+from game_state.activePiece import activePiece, Tetrominoes, active_colours
 import pytest
 
 class Test_activePiece(unittest.TestCase):
@@ -35,7 +35,7 @@ class Test_activePiece(unittest.TestCase):
         piece = activePiece("T", "b", [0,4])
         piece.spawnNewPiece()
         self.assertIn(piece.letter, list(Tetrominoes.keys()))
-        self.assertIn(piece.colour, list(colour.keys()))
+        self.assertIn(piece.colour, list(active_colours.keys()))
         self.assertEqual(piece.coords, [0,4])
 
     def test_moveH(self):
