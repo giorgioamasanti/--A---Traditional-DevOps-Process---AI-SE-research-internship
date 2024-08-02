@@ -29,7 +29,7 @@ class main:
     def events(self):
         """ Handle game events """
         receiveInputs(self.commands, self.activePiece)
-        executeCommands(self.commands, self.activePiece, self.gridState)
+        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer)
 
     def update(self):
         """ Update game state """

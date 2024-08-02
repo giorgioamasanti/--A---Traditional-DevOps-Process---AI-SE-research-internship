@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import time
 
 Tetrominoes = {"I": [[1,1,1,1]],
                "L": [[0,0,1],
@@ -18,6 +19,7 @@ Tetrominoes = {"I": [[1,1,1,1]],
 active_colours = {'b': (0,0,255), 'r': (255,0,0), 'g': (0,255,0), 'y': (255,255,0), 'o': (255,165,0), 'p': (128,0,128), 'c': (0,255,255)}
 solid_colours = {'B': (0,0,150), 'R': (150,0,0), 'G': (0,150,0), 'Y': (150,150,0), 'O': (150,100,0), 'P': (75,0,75), 'C': (0,150,150)}
 all_colours = active_colours | solid_colours
+colour_map = {'b':'B', 'r':'R', 'g':'G', 'y':'Y', 'o':'O', 'p':'P', 'c':'C'}
 
 class activePiece:
     """Class to define all the properties of an active tetromino piece"""
@@ -59,7 +61,7 @@ class activePiece:
         self.shape = Tetrominoes[self.letter] #2D (or 1D for "I") array representing the shape
         self.recalculateDimensions()
         self.colour = random.choice(list(active_colours.keys()))
-        self.coords = [0,4] #spawn point
+        self.coords = [0,4] #spawn point        
     
     def moveH(self, direction):
         if direction not in [-1,1]:
@@ -74,6 +76,14 @@ class activePiece:
         
         #direction is: -1 for up, +1 for down
         self.coords[0] += direction
+
+    def solidify(self, gridState, dropperTimer):
+        for i in range(self.width):
+            for j in range(self.height):
+                if self.shape[j][i] != 0:
+                    gridState.solidArray[self.coords[0]+j][self.coords[1]+i] = colour_map[self.colour]
+        dropperTimer.lastDropTime = time.time()
+        self.spawnNewPiece()
 
 
 

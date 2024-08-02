@@ -21,7 +21,7 @@ def receiveInputs(commands, activePiece):
                 commands.append("spawn")
 
 
-def executeCommands(commands, activePiece, gridState):
+def executeCommands(commands, activePiece, gridState, dropperTimer):
     dummyPiece = copy.deepcopy(activePiece)
     dummyGrid = copy.deepcopy(gridState)
 
@@ -38,7 +38,11 @@ def executeCommands(commands, activePiece, gridState):
             dummyPiece.spawnNewPiece()
 
         if checkCollision(dummyPiece, dummyGrid) == True:
-            print("=====collision detected, not executing command=====")
+            if c == "moveDown":
+                activePiece.solidify(gridState, dropperTimer)
+                print("*** piece solidified ***")
+            else:
+                print("=====collision detected, not executing command=====")
         else:
             print("+++ no collision detected, executing command +++")
             if c == "moveRight":
