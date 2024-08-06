@@ -15,7 +15,8 @@ class gridState:
         self.array = [[0 for x in range(gridShape[0])] for y in range(gridShape[1])]
         #array to represent the solidified cells - should contain "0" for an empty cell and a capital letter to represent a filled, solid cell
         self.solidArray = [[0 for x in range(gridShape[0])] for y in range(gridShape[1])]
-        
+
+        self.gameState = "playing"
 
     def updateGrid(self, activePiece):
         """ Updating grid array in 3 stages: 1) empty grid, 2) solid blocks, 3) active piece """
@@ -54,5 +55,7 @@ class gridState:
         full_rows = self.checkRowClear()
         self.clearFullRows(full_rows)
 
+    def gameOver(self):
+        self.gameState = "game over"
         
 

@@ -40,6 +40,7 @@ def executeCommands(commands, activePiece, gridState, dropperTimer):
 
         if checkCollision(dummyPiece,dummyGrid) == True and c == "spawn":
             print("GAMEOVER!!!")
+            gridState.gameOver()
         elif checkCollision(dummyPiece, dummyGrid) == True:
             if c == "moveDown":
                 activePiece.solidify(gridState, dropperTimer)
