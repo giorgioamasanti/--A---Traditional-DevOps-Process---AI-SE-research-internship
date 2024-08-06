@@ -25,6 +25,7 @@ class main:
         #defining the dropper timer
         self.dropperTimer = dropperTimer(dropInterval=0.5)
 
+
     
     def events(self):
         """ Handle user input and automated events """

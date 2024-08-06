@@ -1,6 +1,8 @@
 import numpy as np
 import random
 import time
+from user_inputs.commands import executeCommands
+
 
 Tetrominoes = {"I": [[1,1,1,1]],
                "L": [[0,0,1],
@@ -17,7 +19,7 @@ Tetrominoes = {"I": [[1,1,1,1]],
                      [0,1,1]],}
 
 active_colours = {'b': (0,0,255), 'r': (255,0,0), 'g': (0,255,0), 'y': (255,255,0), 'o': (255,165,0), 'p': (128,0,128), 'c': (0,255,255)}
-solid_colours = {'B': (0,0,150), 'R': (150,0,0), 'G': (0,150,0), 'Y': (150,150,0), 'O': (150,100,0), 'P': (75,0,75), 'C': (0,150,150)}
+solid_colours = {'B': (0,0,255), 'R': (255,0,0), 'G': (0,255,0), 'Y': (255,255,0), 'O': (255,165,0), 'P': (128,0,128), 'C': (0,255,255)}
 all_colours = active_colours | solid_colours
 active_to_solid_colour_map = {'b':'B', 'r':'R', 'g':'G', 'y':'Y', 'o':'O', 'p':'P', 'c':'C'}
 shape_to_colour_map = {'I':'c', 'J':'b', 'T':'p', 'L':'o', 'O':'y', 'S':'g', 'Z':'r'}
@@ -87,7 +89,7 @@ class activePiece:
                 if self.shape[j][i] != 0:
                     gridState.solidArray[self.coords[0]+j][self.coords[1]+i] = active_to_solid_colour_map[self.colour]
         dropperTimer.lastDropTime = time.time()
-        self.spawnNewPiece()
+        executeCommands(["spawn"], self, gridState, dropperTimer)
 
 
 

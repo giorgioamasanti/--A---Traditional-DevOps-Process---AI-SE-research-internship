@@ -1,5 +1,3 @@
-from game_state.activePiece import solid_colours, active_colours
-
 class collisionError(Exception):
     def __init__(self, message=None):
         self.message = message

@@ -37,14 +37,18 @@ def executeCommands(commands, activePiece, gridState, dropperTimer):
         elif c == "spawn":
             dummyPiece.spawnNewPiece()
 
-        if checkCollision(dummyPiece, dummyGrid) == True:
+
+        if checkCollision(dummyPiece,dummyGrid) == True and c == "spawn":
+            print("GAMEOVER!!!")
+        elif checkCollision(dummyPiece, dummyGrid) == True:
             if c == "moveDown":
                 activePiece.solidify(gridState, dropperTimer)
-                print("*** piece solidified ***")
+                #print("*** piece solidified ***")
             else:
-                print("=====collision detected, not executing command=====")
+                pass
+                #print("=====collision detected, not executing command=====")
         else:
-            print("+++ no collision detected, executing command +++")
+            #print("+++ no collision detected, executing command +++")
             if c == "moveRight":
                 activePiece.moveH(1)
             elif c == "moveLeft":
