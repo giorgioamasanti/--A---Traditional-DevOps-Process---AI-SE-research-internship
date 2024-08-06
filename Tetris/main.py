@@ -10,7 +10,7 @@ from game_state.drop import dropperTimer
 class main:
     def __init__(self):
         """ Initialize the game """
-        pygame.init()
+        pygame.init() #initialise game
         self.running = True
         self.clock = pygame.time.Clock()
         #grid properties
@@ -27,14 +27,15 @@ class main:
 
     
     def events(self):
-        """ Handle game events """
-        receiveInputs(self.commands, self.activePiece)
-        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer)
+        """ Handle user input and automated events """
+        receiveInputs(self.commands, self.activePiece) # takes all the user inputs and places them onto a command stack
+        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer) # executes the commands from the bottom of the stack - but if a collision would occur it doesn't execute the command
+        self.dropperTimer.checkDrop(self.activePiece, self.gridState) # drops the active piece by 1 row when the drop interval has passed
+        self.gridState.rowClear() # clears any full rows and moves above rows down
 
     def update(self):
-        """ Update game state """
-        self.dropperTimer.checkDrop(self.activePiece, self.gridState)
-        self.gridState.updateGrid(self.activePiece)
+        """ Update game state based on all the changes that just occurred"""
+        self.gridState.updateGrid(self.activePiece) # updates the grid array with the active piece and solid pieces
 
     def render(self):
         """ Render game state """
@@ -50,7 +51,7 @@ class main:
             self.events()
             self.update()
             self.render()
-            self.clock.tick(30)
+            self.clock.tick(60)
 
 if __name__ == "__main__":
     """ Run the game """

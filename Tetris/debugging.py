@@ -1,7 +1,4 @@
-from game_state.activePiece import activePiece
-testPiece = activePiece("L", "b", (4,4))
-print(testPiece.shape)
-testPiece.rotate()
-print(testPiece.shape)
-testPiece.rotate()
-print(testPiece.shape)
+import numpy as np
+
+x =  np.arange(19, 0, -1)
+print(x[3])
