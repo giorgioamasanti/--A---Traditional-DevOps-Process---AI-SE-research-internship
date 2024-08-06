@@ -3,6 +3,13 @@
 # solid pieces: cyan = 'C', blue = 'B', orange = 'O', yellow = 'Y', green = 'G', purple = 'P', red = 'R'
 import numpy as np
 
+#dictionary mapping the number of rows cleared to the score it adds
+scores = {0: 0,
+          1: 40,
+          2: 100,
+          3: 300,
+          4: 1200}
+
 class gridState:
     def __init__(self, gridShape, cellSize):
         """ Defining the grid class and its properties: parameters which define the current state of the grid 
@@ -17,6 +24,9 @@ class gridState:
         self.solidArray = [[0 for x in range(gridShape[0])] for y in range(gridShape[1])]
 
         self.gameState = "playing"
+
+        #the current game score
+        self.score = 0
 
     def updateGrid(self, activePiece):
         """ Updating grid array in 3 stages: 1) empty grid, 2) solid blocks, 3) active piece """
@@ -41,6 +51,7 @@ class gridState:
             full = all(row[column] != 0 for column in range(len(self.solidArray[0])))
             if full:
                 full_rows.append(self.solidArray.index(row))
+        self.score += scores[len(full_rows)]
         return full_rows
     
     def clearFullRows(self, full_rows):

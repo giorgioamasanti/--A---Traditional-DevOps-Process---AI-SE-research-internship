@@ -1,5 +1,5 @@
 import pygame, random
-from game_render.gridRender import gridRender
+from game_render.gridRender import mainGameRender
 from game_state.gridState import gridState
 from game_state.activePiece import activePiece, Tetrominoes, active_colours
 from user_inputs.commands import receiveInputs, executeCommands
@@ -16,7 +16,10 @@ class main:
         #grid properties
         self.gridShape = (10,20)
         self.cellSize = 36
-        self.displaySurf = pygame.display.set_mode((self.gridShape[0]*self.cellSize, self.gridShape[1]*self.cellSize))
+        #initializing game window
+        self.windowWidth = self.gridShape[0]*self.cellSize + 240
+        self.windowHeight = self.gridShape[1]*self.cellSize
+        self.displaySurf = pygame.display.set_mode((self.windowWidth, self.windowHeight))
         #taking grid properties and defining an initial gridState
         self.gridState = gridState(self.gridShape, self.cellSize)
         self.activePiece = activePiece(random.choice(list(Tetrominoes.keys())), [4,4])
@@ -24,7 +27,9 @@ class main:
         self.commands = []
         #defining the dropper timer
         self.dropperTimer = dropperTimer(dropInterval=0.5)
-    
+        #changing name of window
+        pygame.display.set_caption("Tetris")
+
     def main_game_events(self):
         """ Handle user input and automated events """
         receiveInputs(self.commands, self.activePiece) # takes all the user inputs and places them onto a command stack
@@ -38,11 +43,12 @@ class main:
     
     def main_game_render(self):
         """ Render game state """
-        #renders the grid based on current grid state
-        gridRender(self.gridState, self.displaySurf)
+        #renders the grid and other stuff for main game
+        mainGameRender(self.gridState, self.displaySurf)
         pygame.display.update()
 
     def gameover_events(self):
+        """ Handles exit events as well as new game input 'N' for when the game is in gameover state"""
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -54,8 +60,8 @@ class main:
                         self.activePiece = activePiece(random.choice(list(Tetrominoes.keys())), [4,4])
 
     def gameover_render(self):
-        """ Renders teh game over screen"""
-        gameOverRender(self.displaySurf)
+        """ Renders the game over screen"""
+        gameOverRender(self.displaySurf, self.gridState)
 
     def run(self):
         """ Run the game """
