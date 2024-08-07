@@ -7,7 +7,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 import unittest
 from game_state.gridState import gridState
 from game_state.activePiece import activePiece, Tetrominoes, active_colours
-import pytest
 
 class Test_gridState(unittest.TestCase):
     def test_updateGrid(self):
