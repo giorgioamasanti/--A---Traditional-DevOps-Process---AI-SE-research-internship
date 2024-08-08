@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "NEWbranch" ]
 
-
 permissions:
   contents: read
 
@@ -38,7 +37,7 @@ jobs:
 
       - name: Build executable
         run: |
-          pyinstaller --onefile --windowed --add-data "game_render:game_render" main.py
+          pyinstaller --onefile --windowed --add-data "game_render:game_render" --add-data "game_state:game_state" main.py
         env:
           VERSION: ${{ github.sha }}
 
