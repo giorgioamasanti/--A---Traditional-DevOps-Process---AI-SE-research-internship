@@ -39,7 +39,7 @@ jobs:
 
       - name: Build executable
         run: |
-          pyinstaller --onefile main.py
+          pyinstaller --onefile Tetris/main.py
         env:
           VERSION: ${{ github.sha }}
 
