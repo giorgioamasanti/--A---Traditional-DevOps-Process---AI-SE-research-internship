@@ -1,0 +1,4 @@
+pygame
+numpy
+flake8
+pyinstaller
