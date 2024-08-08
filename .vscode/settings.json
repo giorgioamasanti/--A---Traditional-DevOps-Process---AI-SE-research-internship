@@ -1,6 +1,13 @@
 {
     "git.ignoreLimitWarning": true,
     "python.analysis.extraPaths": [
-        "./Tetris"
+        "./Tetris"],
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "/.github/workflows/*"
+    },
+    "yaml.customTags": [
+        "!secrets scalar",
+        "!ENV scalar",
+        "!includeDir"
     ]
 }
