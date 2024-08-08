@@ -98,7 +98,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env: 
-          GITHUB_TOKEN: ${{ secrets.PAT }}  
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
         with:
           tag_name: v1.0.${{ github.run_number }}
           release_name: Release v1.0.${{ github.run_number }}
@@ -108,7 +108,7 @@ jobs:
       - name: Upload Release Asset for Linux
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}  # !secrets scalar
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # !secrets scalar
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/main-linux
@@ -118,7 +118,7 @@ jobs:
       - name: Upload Release Asset for macOS
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/main-macos
@@ -128,7 +128,7 @@ jobs:
       - name: Upload Release Asset for Windows
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./dist/main-windows.exe
