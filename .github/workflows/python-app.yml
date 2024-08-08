@@ -38,7 +38,7 @@ jobs:
 
       - name: Build executable
         run: |
-          pyinstaller --onefile --windowed --add-data "game_render" main.py
+          pyinstaller --onefile --windowed --add-data "game_render:game_render" main.py
         env:
           VERSION: ${{ github.sha }}
 
