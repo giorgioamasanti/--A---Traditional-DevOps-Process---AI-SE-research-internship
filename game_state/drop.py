@@ -15,4 +15,4 @@ class dropperTimer():
     def checkDrop(self, activePiece, gridState):
         if time.time() >= self.lastDropTime + self.dropInterval:
             self.lastDropTime = time.time()
-            executeCommands(["moveDown"], activePiece, gridState, self)
+            executeCommands(["moveDown"], activePiece, gridState, self, mute=True)

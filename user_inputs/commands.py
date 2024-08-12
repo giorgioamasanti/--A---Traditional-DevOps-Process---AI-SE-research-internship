@@ -7,27 +7,30 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import pygame
 from game_state.collision import checkCollision
 import copy
+from sfx.gameplay_sfx import sfx
+
+userInputKeys = {pygame.K_RIGHT: "moveRight",
+                 pygame.K_LEFT: "moveLeft",
+                 pygame.K_DOWN: "moveDown",
+                 pygame.K_UP: "rotate",
+                 pygame.K_s: "spawn",
+                 pygame.K_m: "musicToggle"}
 
 def receiveInputs(commands, activePiece):
     #take the inputs and put them into a commands list
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
+            pygame.display.quit()
             pygame.quit()
+            sys.exit()
             break
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                commands.append("moveRight")
-            elif event.key == pygame.K_LEFT:
-                commands.append("moveLeft")
-            elif event.key == pygame.K_DOWN:
-                commands.append("moveDown")
-            elif event.key == pygame.K_UP:
-                commands.append("rotate")
-            elif event.key == pygame.K_s:
-                commands.append("spawn")
+            if event.key in userInputKeys.keys():
+                commands.append(userInputKeys[event.key])
 
 
-def executeCommands(commands, activePiece, gridState, dropperTimer):
+
+def executeCommands(commands, activePiece, gridState, dropperTimer, b_music = None, mute = False):
     dummyPiece = copy.deepcopy(activePiece)
     dummyGrid = copy.deepcopy(gridState)
 
@@ -41,16 +44,19 @@ def executeCommands(commands, activePiece, gridState, dropperTimer):
         elif c == "rotate":
             dummyPiece.rotate()
         elif c == "spawn":
-            dummyPiece.spawnNewPiece()
+            dummyPiece.spawnNewPiece() 
+        elif c == "musicToggle":
+            b_music.toggle_music()
         else:
             raise KeyError(f"No command called {c}")
 
 
-        if checkCollision(dummyPiece,dummyGrid) == True and c == "spawn":
-            print("GAMEOVER!!!")
-            gridState.gameOver()
-        elif checkCollision(dummyPiece, dummyGrid) == True:
-            if c == "moveDown":
+        if checkCollision(dummyPiece,dummyGrid) == True:
+            if c == "spawn":
+                print("GAMEOVER!!!")
+                sfx("game_over")
+                gridState.gameOver()
+            elif c == "moveDown":
                 activePiece.solidify(gridState, dropperTimer)
                 #print("*** piece solidified ***")
             else:
@@ -60,12 +66,17 @@ def executeCommands(commands, activePiece, gridState, dropperTimer):
             #print("+++ no collision detected, executing command +++")
             if c == "moveRight":
                 activePiece.moveH(1)
+                #sfx("move_piece")
             elif c == "moveLeft":
                 activePiece.moveH(-1)
+                #sfx("move_piece")
             elif c == "moveDown":
                 activePiece.moveV(1)
+                #if mute == False:
+                    #sfx("move_piece")
             elif c == "rotate":
                 activePiece.rotate()
+                #sfx("rotate_piece")
             elif c == "spawn":
                 activePiece.spawnNewPiece()
 

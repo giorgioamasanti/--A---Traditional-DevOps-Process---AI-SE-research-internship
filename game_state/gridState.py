@@ -2,6 +2,7 @@
 # active pieces: cyan = 'c', blue = 'b', orange = 'o', yellow = 'y', green = 'g', purple = 'p', red = 'r'
 # solid pieces: cyan = 'C', blue = 'B', orange = 'O', yellow = 'Y', green = 'G', purple = 'P', red = 'R'
 import numpy as np
+from sfx.gameplay_sfx import sfx
 
 #dictionary mapping the number of rows cleared to the score it adds
 scores = {0: 0,
@@ -61,6 +62,10 @@ class gridState:
             for i in np.arange(full_row, 0, -1):
                 self.solidArray[i] = self.solidArray[i-1]
             self.solidArray[0] = [0 for _ in range(len(self.solidArray[1]))]
+        
+        #sfx
+        if len(full_rows) > 0:
+            sfx("line_clear")
 
     def rowClear(self):
         """ Brings together checkRowClear and clearFullRows"""

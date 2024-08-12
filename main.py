@@ -5,6 +5,7 @@ from game_state.activePiece import activePiece, Tetrominoes, active_colours
 from user_inputs.commands import receiveInputs, executeCommands
 from game_state.drop import dropperTimer
 from game_render.gameOverScreen import gameOverRender
+from sfx.background_music import backgroundMusic
 
 
 class main:
@@ -29,13 +30,16 @@ class main:
         self.dropperTimer = dropperTimer(dropInterval=0.5)
         #changing name of window
         pygame.display.set_caption("Tetris")
+        #initializing background music
+        self.b_music = backgroundMusic()
 
     def main_game_events(self):
         """ Handle user input and automated events """
         receiveInputs(self.commands, self.activePiece) # takes all the user inputs and places them onto a command stack
-        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer) # executes the commands from the bottom of the stack - but if a collision would occur it doesn't execute the command
+        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer, self.b_music) # executes the commands from the bottom of the stack - but if a collision would occur it doesn't execute the command
         self.dropperTimer.checkDrop(self.activePiece, self.gridState) # drops the active piece by 1 row when the drop interval has passed
         self.gridState.rowClear() # clears any full rows and moves above rows down
+
    
     def main_game_update(self):
         """ Update game state based on all the changes that just occurred"""

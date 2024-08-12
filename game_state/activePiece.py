@@ -8,6 +8,7 @@ import numpy as np
 import random
 import time
 from user_inputs.commands import executeCommands
+from sfx.gameplay_sfx import sfx
 
 
 Tetrominoes = {"I": [[1,1,1,1]],
@@ -95,6 +96,9 @@ class activePiece:
                 if self.shape[j][i] != 0:
                     gridState.solidArray[self.coords[0]+j][self.coords[1]+i] = active_to_solid_colour_map[self.colour]
         dropperTimer.lastDropTime = time.time()
+
+        #sfx
+        sfx("solidify")
         executeCommands(["spawn"], self, gridState, dropperTimer)
 
 
