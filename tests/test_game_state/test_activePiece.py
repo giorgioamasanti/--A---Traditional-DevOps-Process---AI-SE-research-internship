@@ -8,6 +8,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 import unittest
 from game_state.activePiece import activePiece, Tetrominoes, active_colours
 import pytest
+from game_state.gridState import gridState
+from game_state.drop import dropperTimer
 
 class Test_activePiece(unittest.TestCase):
     def test_rotate(self):
@@ -51,7 +53,27 @@ class Test_activePiece(unittest.TestCase):
         self.assertEqual(piece.coords, [1,4])
         with pytest.raises(ValueError):
             piece.moveV(3)
+    
+    def test_solidify(self):
+        #initialise piece on grid
+        piece = activePiece("T", [9,4], "r")
+        grid = gridState([10,20], 20)        
+        grid.solidArray = [[0 for x in range(grid.gridShape[0])] for y in range(grid.gridShape[1])]
+        dropTimer = dropperTimer()
+        
+        #expected array
+        expectedArray = [[0 for x in range(grid.gridShape[0])] for y in range(grid.gridShape[1])]
+        for i in range(4,7):
+            expectedArray[10][i] = "R"
+        expectedArray[9][5] = "R"
 
+        #solidify + spawn new piece
+        piece.solidify(grid, dropTimer)
+        
+        #assertions
+        self.assertEqual(grid.solidArray, expectedArray)
+        self.assertEqual(piece.coords, [0,4])
+        
 
 if __name__ == "__main__":
     unittest.main()

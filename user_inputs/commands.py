@@ -42,6 +42,8 @@ def executeCommands(commands, activePiece, gridState, dropperTimer):
             dummyPiece.rotate()
         elif c == "spawn":
             dummyPiece.spawnNewPiece()
+        else:
+            raise KeyError(f"No command called {c}")
 
 
         if checkCollision(dummyPiece,dummyGrid) == True and c == "spawn":

@@ -47,10 +47,11 @@ class gridState:
     def checkRowClear(self):
         """ Scans the current solid array for any full rows, returns a list containing the indices of any full rows (rows are indexed 0 (top) to 19 (bottom))"""
         full_rows = []
-        for row in self.solidArray:
-            full = all(row[column] != 0 for column in range(len(self.solidArray[0])))
+        for row in range(len(self.solidArray)):
+            full = all(self.solidArray[row][column] != 0 for column in range(len(self.solidArray[0])))
             if full:
-                full_rows.append(self.solidArray.index(row))
+                full_rows.append(row)
+                #print(f"Index of row which is full: {row}")
         self.score += scores[len(full_rows)]
         return full_rows
     

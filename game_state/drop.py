@@ -8,8 +8,8 @@ import time
 from user_inputs.commands import executeCommands
 
 class dropperTimer():
-    def __init__(self, dropInterval):
-        self.dropInterval = dropInterval
+    def __init__(self, dropInterval = 0.75):
+        self.dropInterval = dropInterval #time in seconds
         self.lastDropTime = time.time()
     
     def checkDrop(self, activePiece, gridState):

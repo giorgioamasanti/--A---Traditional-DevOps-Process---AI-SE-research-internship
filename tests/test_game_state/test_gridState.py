@@ -23,5 +23,21 @@ class Test_gridState(unittest.TestCase):
         expected_array[1][6] = "p"
         self.assertEqual(grid.array,expected_array)
 
+    def test_checkRowClear(self):
+        grid = gridState([10,20], 20)
+        grid.solidArray = [[0 for x in range(grid.gridShape[0])] for y in range(grid.gridShape[1])]
+        for i in range(18,20):
+            grid.solidArray[i] = ['R' for x in range(grid.gridShape[0])]
+        for i in range(9):
+            grid.solidArray[17][i] = 'R'
+
+        self.assertEqual(grid.checkRowClear(), [18,19])
+        grid.rowClear()
+        expectedArray = [[0 for x in range(grid.gridShape[0])] for y in range(grid.gridShape[1])]
+        for i in range(9):
+            expectedArray[19][i] = 'R'
+        self.assertEqual(grid.solidArray, expectedArray)
+
+
 if __name__ == "__main__":
     unittest.main()
