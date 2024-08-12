@@ -1,3 +1,2 @@
-import pygame
-from sfx.gameplay_sfx import game_over_sfx
-
+import datetime
+print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
