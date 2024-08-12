@@ -3,6 +3,7 @@
 # solid pieces: cyan = 'C', blue = 'B', orange = 'O', yellow = 'Y', green = 'G', purple = 'P', red = 'R'
 import numpy as np
 from sfx.gameplay_sfx import sfx
+from game_state.high_score import roundScore, scoreTable
 
 #dictionary mapping the number of rows cleared to the score it adds
 scores = {0: 0,
@@ -28,6 +29,7 @@ class gridState:
 
         #the current game score
         self.score = 0
+
 
     def updateGrid(self, activePiece):
         """ Updating grid array in 3 stages: 1) empty grid, 2) solid blocks, 3) active piece """
@@ -72,7 +74,10 @@ class gridState:
         full_rows = self.checkRowClear()
         self.clearFullRows(full_rows)
 
-    def gameOver(self):
+    def gameOver(self, currentSessionScoreTable):
+        roundScoreObject = roundScore(self.score)
+        currentSessionScoreTable.add_score(roundScoreObject)
         self.gameState = "game over"
+        print(currentSessionScoreTable.scoreObjects)
         
 

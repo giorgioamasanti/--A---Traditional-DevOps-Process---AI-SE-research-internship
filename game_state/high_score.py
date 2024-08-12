@@ -5,6 +5,9 @@ class roundScore():
     def __init__(self, score):
         self.score = score
         self.time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    def __repr__(self) -> str:
+        return (f"Score: {self.score}; Time: {self.time}")
 
 #creating a scoreTable object which has an attribute of a list of all score objects 
 #we will create different instances of it for the current and all-time sessions
@@ -13,6 +16,9 @@ class scoreTable():
         self.scoreObjects = []
         self.scores = []
         self.times = []
+    
+    def __repr__(self) -> str:
+        return(str(self.scoreObjects))
     
     def add_score(self, roundScoreObject):
         self.scoreObjects.append(roundScoreObject)

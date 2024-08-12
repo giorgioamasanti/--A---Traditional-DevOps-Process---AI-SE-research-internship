@@ -6,6 +6,7 @@ from user_inputs.commands import receiveInputs, executeCommands
 from game_state.drop import dropperTimer
 from game_render.gameOverScreen import gameOverRender
 from sfx.background_music import backgroundMusic
+from game_state.high_score import scoreTable
 
 
 class main:
@@ -27,17 +28,20 @@ class main:
         #defining the commands list
         self.commands = []
         #defining the dropper timer
-        self.dropperTimer = dropperTimer(dropInterval=0.5)
+        self.dropperTimer = dropperTimer(dropInterval=0.010) # was 0.5 before
         #changing name of window
         pygame.display.set_caption("Tetris")
         #initializing background music
         self.b_music = backgroundMusic()
+        #current session high score table
+        self.currentSessionScoreTable = scoreTable()
+        #print(f"Upon initialization: {self.currentSessionScoreTable}")
 
     def main_game_events(self):
         """ Handle user input and automated events """
         receiveInputs(self.commands, self.activePiece) # takes all the user inputs and places them onto a command stack
-        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer, self.b_music) # executes the commands from the bottom of the stack - but if a collision would occur it doesn't execute the command
-        self.dropperTimer.checkDrop(self.activePiece, self.gridState) # drops the active piece by 1 row when the drop interval has passed
+        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer, self.currentSessionScoreTable, self.b_music ) # executes the commands from the bottom of the stack - but if a collision would occur it doesn't execute the command
+        self.dropperTimer.checkDrop(self.activePiece, self.gridState, self.currentSessionScoreTable) # drops the active piece by 1 row when the drop interval has passed
         self.gridState.rowClear() # clears any full rows and moves above rows down
 
    
