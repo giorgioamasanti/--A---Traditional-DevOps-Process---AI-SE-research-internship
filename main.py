@@ -19,7 +19,7 @@ class main:
         self.gridShape = (10,20)
         self.cellSize = 36
         #initializing game window
-        self.windowWidth = self.gridShape[0]*self.cellSize + 240
+        self.windowWidth = self.gridShape[0]*self.cellSize + 280
         self.windowHeight = self.gridShape[1]*self.cellSize
         self.displaySurf = pygame.display.set_mode((self.windowWidth, self.windowHeight))
         #taking grid properties and defining an initial gridState
@@ -28,7 +28,7 @@ class main:
         #defining the commands list
         self.commands = []
         #defining the dropper timer
-        self.dropperTimer = dropperTimer(dropInterval=0.010) # was 0.5 before
+        self.dropperTimer = dropperTimer(dropInterval=0.350) # was 0.5 before
         #changing name of window
         pygame.display.set_caption("Tetris")
         #initializing background music
@@ -52,7 +52,7 @@ class main:
     def main_game_render(self):
         """ Render game state """
         #renders the grid and other stuff for main game
-        mainGameRender(self.gridState, self.displaySurf)
+        mainGameRender(self.gridState, self.displaySurf, self.currentSessionScoreTable)
         pygame.display.update()
 
     def gameover_events(self):
@@ -69,7 +69,7 @@ class main:
 
     def gameover_render(self):
         """ Renders the game over screen"""
-        gameOverRender(self.displaySurf, self.gridState)
+        gameOverRender(self.displaySurf, self.gridState, self.windowWidth, self.windowHeight)
 
     def run(self):
         """ Run the game """
