@@ -6,11 +6,19 @@ from sfx.gameplay_sfx import sfx
 from game_state.high_score import roundScore, scoreTable
 
 #dictionary mapping the number of rows cleared to the score it adds
-scores = {0: 0,
-          1: 40,
-          2: 100,
-          3: 300,
-          4: 1200}
+rowscleared_to_scores = {0: 0,
+                        1: 40,
+                        2: 100,
+                        3: 300,
+                        4: 1200}
+
+scores_to_drop_delay = {0: 0.7,
+                        40: 0.6,
+                        200: 0.5,
+                        400: 0.4,
+                        600: 0.3,
+                        800: 0.2,
+                        1000: 0.1}
 
 class gridState:
     def __init__(self, gridShape, cellSize):
@@ -20,6 +28,8 @@ class gridState:
         displaySurf: instance of surface class, the surface on which we will render the grid"""
         self.gridShape = gridShape
         self.cellSize = cellSize
+        self.width = gridShape[0]*cellSize
+        self.height = gridShape[1]*cellSize
         #array to represent the grid cells
         self.array = [[0 for x in range(gridShape[0])] for y in range(gridShape[1])]
         #array to represent the solidified cells - should contain "0" for an empty cell and a capital letter to represent a filled, solid cell
@@ -29,6 +39,8 @@ class gridState:
 
         #the current game score
         self.score = 0
+
+        self.speedUpFlag = False
 
 
     def updateGrid(self, activePiece):
@@ -55,7 +67,7 @@ class gridState:
             if full:
                 full_rows.append(row)
                 #print(f"Index of row which is full: {row}")
-        self.score += scores[len(full_rows)]
+        self.score += rowscleared_to_scores[len(full_rows)]
         return full_rows
     
     def clearFullRows(self, full_rows):
@@ -69,15 +81,36 @@ class gridState:
         if len(full_rows) > 0:
             sfx("line_clear")
 
-    def rowClear(self):
+    def getNewDropTime(self):
+        delay = 0
+        for i in sorted(scores_to_drop_delay.keys()):
+            if self.score >= i:
+                delay = scores_to_drop_delay[i]
+        return delay
+    
+    def rowClear(self, dropTimeAttribute):
         """ Brings together checkRowClear and clearFullRows"""
         full_rows = self.checkRowClear()
-        self.clearFullRows(full_rows)
+        if len(full_rows) > 0:
+            self.clearFullRows(full_rows)
+            if self.getNewDropTime() < dropTimeAttribute:
+                self.speedUpFlag = True
 
     def gameOver(self, currentSessionScoreTable):
         roundScoreObject = roundScore(self.score)
         currentSessionScoreTable.add_score(roundScoreObject)
         self.gameState = "game over"
         print(currentSessionScoreTable.scoreObjects)
+    
+    
+
+    #def updateDropTime(self, dropTimeAttribute):
+        newDropTime = self.getNewDropTime()
+        dropTimeAttribute = newDropTime
+        print(f"newDropTime: {newDropTime}")
+        print(f"dropTimeAttribute: {dropTimeAttribute}")
+    
+
+
         
 

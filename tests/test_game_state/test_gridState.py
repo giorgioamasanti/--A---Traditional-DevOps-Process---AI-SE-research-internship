@@ -38,6 +38,29 @@ class Test_gridState(unittest.TestCase):
             expectedArray[19][i] = 'R'
         self.assertEqual(grid.solidArray, expectedArray)
 
+    def test_getNewDropTime(self):
+        grid = gridState([10,20], 20)
+        grid.score = 0
+        self.assertEqual(grid.getNewDropTime(), 0.7)
+        grid.score = 20
+        self.assertEqual(grid.getNewDropTime(), 0.7)
+        grid.score = 100
+        self.assertEqual(grid.getNewDropTime(), 0.6)
+        grid.score = 120
+        self.assertEqual(grid.getNewDropTime(), 0.6)
+        grid.score = 200
+        self.assertEqual(grid.getNewDropTime(), 0.5)
+        grid.score = 600
+        self.assertEqual(grid.getNewDropTime(), 0.3)
+        grid.score = 800
+        self.assertEqual(grid.getNewDropTime(), 0.2)
+        grid.score = 1000
+        self.assertEqual(grid.getNewDropTime(), 0.1)
+        grid.score = 1200
+        self.assertEqual(grid.getNewDropTime(), 0.1)
+        grid.score = 0
+        self.assertEqual(grid.getNewDropTime(), 0.7)
+        
 
 if __name__ == "__main__":
     unittest.main()
