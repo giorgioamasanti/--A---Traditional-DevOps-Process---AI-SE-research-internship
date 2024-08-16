@@ -30,7 +30,7 @@ def receiveInputs(commands, activePiece):
 
 
 
-def executeCommands(commands, activePiece, gridState, dropperTimer, currentSessionScoreTable = None, b_music = None, mute = False ):
+def executeCommands(commands, activePiece, gridState, dropperTimer, currentSessionScoreTable = None, ATHSobject = None, b_music = None, mute = False ):
     dummyPiece = copy.deepcopy(activePiece)
     dummyGrid = copy.deepcopy(gridState)
 
@@ -56,9 +56,9 @@ def executeCommands(commands, activePiece, gridState, dropperTimer, currentSessi
                 print("GAMEOVER!!!")
                 #print(f"Passed to executeCommands: {currentSessionScoreTable}")
                 sfx("game_over")
-                gridState.gameOver(currentSessionScoreTable)
+                gridState.gameOver(currentSessionScoreTable, ATHSobject)
             elif c == "moveDown":
-                activePiece.solidify(gridState, dropperTimer, currentSessionScoreTable)
+                activePiece.solidify(gridState, dropperTimer, currentSessionScoreTable, ATHSobject)
                 #print("*** piece solidified ***")
             else:
                 pass

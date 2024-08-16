@@ -12,7 +12,7 @@ class dropperTimer():
         self.dropInterval = dropInterval #time in seconds
         self.lastDropTime = time.time()
     
-    def checkDrop(self, activePiece, gridState, currentSessionScoreTable):
+    def checkDrop(self, activePiece, gridState, currentSessionScoreTable, ATHSobject):
         if time.time() >= self.lastDropTime + self.dropInterval:
             self.lastDropTime = time.time()
-            executeCommands(["moveDown"], activePiece, gridState, self, mute=True, currentSessionScoreTable = currentSessionScoreTable)
+            executeCommands(["moveDown"], activePiece, gridState, self, mute=True, currentSessionScoreTable = currentSessionScoreTable, ATHSobject=ATHSobject)

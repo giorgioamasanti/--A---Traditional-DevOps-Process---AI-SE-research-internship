@@ -8,6 +8,7 @@ from game_render.gameOverScreen import gameOverRender
 from sfx.background_music import backgroundMusic
 from game_state.high_score import scoreTable
 from game_render.speed_up_render import speedUpRender 
+from persistence.all_time_hs import allTimeHighScores
 
 
 class main:
@@ -38,12 +39,14 @@ class main:
         self.currentSessionScoreTable = scoreTable()
         #print(f"Upon initialization: {self.currentSessionScoreTable}")
         self.speedUpTimer = time.time() - 2
+        #initializing all time high score object
+        self.ATHSobject = allTimeHighScores()
 
     def main_game_events(self):
         """ Handle user input and automated events """
         receiveInputs(self.commands, self.activePiece) # takes all the user inputs and places them onto a command stack
-        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer, self.currentSessionScoreTable, self.b_music ) # executes the commands from the bottom of the stack - but if a collision would occur it doesn't execute the command
-        self.dropperTimer.checkDrop(self.activePiece, self.gridState, self.currentSessionScoreTable) # drops the active piece by 1 row when the drop interval has passed
+        executeCommands(self.commands, self.activePiece, self.gridState, self.dropperTimer, self.currentSessionScoreTable, self.ATHSobject, self.b_music ) # executes the commands from the bottom of the stack - but if a collision would occur it doesn't execute the command
+        self.dropperTimer.checkDrop(self.activePiece, self.gridState, self.currentSessionScoreTable, self.ATHSobject) # drops the active piece by 1 row when the drop interval has passed
         self.gridState.rowClear(self.dropperTimer.dropInterval) # clears any full rows and moves above rows down
         self.dropperTimer.dropInterval = self.gridState.getNewDropTime()
         #print(self.dropperTimer.dropInterval)

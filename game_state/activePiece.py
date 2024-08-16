@@ -90,7 +90,7 @@ class activePiece:
         #direction is: -1 for up, +1 for down
         self.coords[0] += direction
 
-    def solidify(self, gridState, dropperTimer, currentSessionScoreTable):
+    def solidify(self, gridState, dropperTimer, currentSessionScoreTable, ATHSobject):
         for i in range(self.width):
             for j in range(self.height):
                 if self.shape[j][i] != 0:
@@ -99,7 +99,7 @@ class activePiece:
 
         #sfx
         sfx("solidify")
-        executeCommands(["spawn"], self, gridState, dropperTimer, currentSessionScoreTable)
+        executeCommands(["spawn"], self, gridState, dropperTimer, currentSessionScoreTable, ATHSobject=ATHSobject)
 
 
 

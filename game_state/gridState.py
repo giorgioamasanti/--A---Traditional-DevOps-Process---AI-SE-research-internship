@@ -18,12 +18,12 @@ rowscleared_to_scores = {0: 0,
                         4: 1200}
 
 scores_to_drop_delay = {0: 0.7,
-                        40: 0.6,
+                        100: 0.6,
                         200: 0.5,
                         400: 0.4,
-                        600: 0.3,
-                        800: 0.2,
-                        1000: 0.1}
+                        800: 0.3,
+                        1600: 0.2,
+                        3200: 0.1}
 
 class gridState:
     def __init__(self, gridShape, cellSize):
@@ -101,9 +101,9 @@ class gridState:
             if self.getNewDropTime() < dropTimeAttribute:
                 self.speedUpFlag = True
 
-    def gameOver(self, currentSessionScoreTable):
+    def gameOver(self, currentSessionScoreTable, ATHSobject):
         roundScoreObject = roundScore(self.score)
-        currentSessionScoreTable.add_score(roundScoreObject)
+        currentSessionScoreTable.add_score(roundScoreObject, ATHSobject)
         self.gameState = "game over"
         print(currentSessionScoreTable.scoreObjects)
     
