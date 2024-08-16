@@ -19,10 +19,10 @@ class Test_drop(unittest.TestCase):
         dropTimer = dropperTimer(0.75)
         #wait
         time.sleep(0.7)
-        dropTimer.checkDrop(piece, grid)
+        dropTimer.checkDrop(piece, grid, None, None)
         self.assertEqual(piece.coords, [0,4])
         time.sleep(0.1)
-        dropTimer.checkDrop(piece, grid)
+        dropTimer.checkDrop(piece, grid, None, None)
         self.assertEqual(piece.coords, [1,4])
 
 

@@ -68,7 +68,7 @@ class Test_activePiece(unittest.TestCase):
         expectedArray[9][5] = "R"
 
         #solidify + spawn new piece
-        piece.solidify(grid, dropTimer)
+        piece.solidify(grid, dropTimer, None, None)
         
         #assertions
         self.assertEqual(grid.solidArray, expectedArray)

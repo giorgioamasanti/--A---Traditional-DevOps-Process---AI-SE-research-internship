@@ -93,13 +93,14 @@ class gridState:
                 delay = scores_to_drop_delay[i]
         return delay
     
-    def rowClear(self, dropTimeAttribute):
+    def rowClear(self, dropTimeAttribute = None):   #drop time attribute only to be None for testing
         """ Brings together checkRowClear and clearFullRows"""
         full_rows = self.checkRowClear()
         if len(full_rows) > 0:
             self.clearFullRows(full_rows)
-            if self.getNewDropTime() < dropTimeAttribute:
-                self.speedUpFlag = True
+            if dropTimeAttribute != None:
+                if self.getNewDropTime() < dropTimeAttribute:
+                    self.speedUpFlag = True
 
     def gameOver(self, currentSessionScoreTable, ATHSobject):
         roundScoreObject = roundScore(self.score)

@@ -38,6 +38,7 @@ class activePiece:
         self.shape = Tetrominoes[self.letter] #2D (or 1D for "I") array representing the shape
         self.width = len(self.shape[0])
         self.height = len(self.shape)
+        self.last_two_pieces = []
         if colour == None:
             self.colour = shape_to_colour_map[self.letter]
         else:
@@ -70,11 +71,22 @@ class activePiece:
         print("rotated piece")
 
     def spawnNewPiece(self):
-        self.letter = random.choice(list(Tetrominoes.keys()))
-        self.shape = Tetrominoes[self.letter] #2D (or 1D for "I") array representing the shape
+        while True:
+            new_piece = random.choice(list(Tetrominoes.keys()))
+            if len(self.last_two_pieces) < 2 or new_piece != self.last_two_pieces[-1] or new_piece != self.last_two_pieces[-2]:
+                break
+        
+        self.letter = new_piece
+        self.shape = Tetrominoes[self.letter]  # 2D (or 1D for "I") array representing the shape
         self.recalculateDimensions()
         self.colour = shape_to_colour_map[self.letter]
-        self.coords = [0,4] #spawn point        
+        self.coords = [0, 4]  # spawn point
+        
+        # Update the last_two_pieces list
+        if len(self.last_two_pieces) >= 2:
+            self.last_two_pieces.pop(0)  # Remove the oldest piece
+        self.last_two_pieces.append(self.letter)
+    
     
     def moveH(self, direction):
         if direction not in [-1,1]:
