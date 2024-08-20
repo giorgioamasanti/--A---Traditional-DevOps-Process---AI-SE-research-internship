@@ -33,16 +33,20 @@ shape_to_colour_map = {'I':'c', 'J':'b', 'T':'p', 'L':'o', 'O':'y', 'S':'g', 'Z'
 
 class activePiece:
     """Class to define all the properties of an active tetromino piece"""
-    def __init__(self, letter, coords, colour = None):
-        self.letter = letter
-        self.shape = Tetrominoes[self.letter] #2D (or 1D for "I") array representing the shape
-        self.width = len(self.shape[0])
-        self.height = len(self.shape)
-        if colour == None:
-            self.colour = shape_to_colour_map[self.letter]
+    def __init__(self, letter=None, coords=None, colour=None):
+        self.last_two_pieces = []  # Initialize last_two_pieces at the beginning
+        if letter is None or coords is None:
+            self.spawnNewPiece()
         else:
-            self.colour = colour
-        self.coords = coords #e.g [0,4] is 0 rows down, 4 columns across - representing the top-left square of the shape
+            self.letter = letter
+            self.shape = Tetrominoes[self.letter] #2D (or 1D for "I") array representing the shape
+            self.width = len(self.shape[0])
+            self.height = len(self.shape)
+            if colour is None:
+                self.colour = shape_to_colour_map[self.letter]
+            else:
+                self.colour = colour
+            self.coords = coords #e.g [0,4] is 0 rows down, 4 columns across - representing the top-left square of the shape
     
     def __str__(self):
         """Print function (for debugging)"""
@@ -70,11 +74,20 @@ class activePiece:
         print("rotated piece")
 
     def spawnNewPiece(self):
-        self.letter = random.choice(list(Tetrominoes.keys()))
+        while True:
+            new_letter = random.choice(list(Tetrominoes.keys()))
+            if len(self.last_two_pieces) < 2 or new_letter not in self.last_two_pieces[-2:]:
+                break
+        self.letter = new_letter
         self.shape = Tetrominoes[self.letter] #2D (or 1D for "I") array representing the shape
         self.recalculateDimensions()
         self.colour = shape_to_colour_map[self.letter]
-        self.coords = [0,4] #spawn point        
+        self.coords = [0,4] #spawn point
+        
+        # Update the last two pieces list
+        self.last_two_pieces.append(self.letter)
+        if len(self.last_two_pieces) > 2:
+            self.last_two_pieces.pop(0)
     
     def moveH(self, direction):
         if direction not in [-1,1]:

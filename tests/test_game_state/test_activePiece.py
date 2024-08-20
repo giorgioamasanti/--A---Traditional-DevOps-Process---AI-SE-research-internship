@@ -39,6 +39,16 @@ class Test_activePiece(unittest.TestCase):
         self.assertIn(piece.letter, list(Tetrominoes.keys()))
         self.assertIn(piece.colour, list(active_colours.keys()))
         self.assertEqual(piece.coords, [0,4])
+    
+    def test_no_three_consecutive_pieces(self):
+        piece = activePiece()
+        piece.last_two_pieces = []  # Reset the history for the test
+
+        # Simulate spawning pieces multiple times
+        for _ in range(100):
+            piece.spawnNewPiece()
+            if len(piece.last_two_pieces) == 2:
+                self.assertNotEqual(piece.last_two_pieces[0], piece.last_two_pieces[1])
 
     def test_moveH(self):
         piece = activePiece("T", [0,4])
@@ -55,22 +65,22 @@ class Test_activePiece(unittest.TestCase):
             piece.moveV(3)
     
     def test_solidify(self):
-        #initialise piece on grid
+        # Initialize piece on grid
         piece = activePiece("T", [9,4], "r")
         grid = gridState([10,20], 20)        
         grid.solidArray = [[0 for x in range(grid.gridShape[0])] for y in range(grid.gridShape[1])]
         dropTimer = dropperTimer()
         
-        #expected array
+        # Expected array
         expectedArray = [[0 for x in range(grid.gridShape[0])] for y in range(grid.gridShape[1])]
         for i in range(4,7):
             expectedArray[10][i] = "R"
         expectedArray[9][5] = "R"
 
-        #solidify + spawn new piece
-        piece.solidify(grid, dropTimer)
+        # Solidify + spawn new piece
+        piece.solidify(grid, dropTimer, None, None)  # Pass None for the missing arguments
         
-        #assertions
+        # Assertions
         self.assertEqual(grid.solidArray, expectedArray)
         self.assertEqual(piece.coords, [0,4])
         
