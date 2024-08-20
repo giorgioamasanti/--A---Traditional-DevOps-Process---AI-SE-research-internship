@@ -51,13 +51,13 @@ class Test_gridState(unittest.TestCase):
         grid.score = 200
         self.assertEqual(grid.getNewDropTime(), 0.5)
         grid.score = 600
-        self.assertEqual(grid.getNewDropTime(), 0.3)
+        self.assertEqual(grid.getNewDropTime(), 0.4)
         grid.score = 800
-        self.assertEqual(grid.getNewDropTime(), 0.2)
+        self.assertEqual(grid.getNewDropTime(), 0.3)
         grid.score = 1000
-        self.assertEqual(grid.getNewDropTime(), 0.1)
-        grid.score = 1200
-        self.assertEqual(grid.getNewDropTime(), 0.1)
+        self.assertEqual(grid.getNewDropTime(), 0.3)
+        grid.score = 1600
+        self.assertEqual(grid.getNewDropTime(), 0.2)
         grid.score = 0
         self.assertEqual(grid.getNewDropTime(), 0.7)
         

@@ -90,7 +90,7 @@ class activePiece:
         #direction is: -1 for up, +1 for down
         self.coords[0] += direction
 
-    def solidify(self, gridState, dropperTimer, currentSessionScoreTable, ATHSobject):
+    def solidify(self, gridState, dropperTimer, currentSessionScoreTable=None, ATHSobject=None): #only None for tests
         for i in range(self.width):
             for j in range(self.height):
                 if self.shape[j][i] != 0:
