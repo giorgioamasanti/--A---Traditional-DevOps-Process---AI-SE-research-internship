@@ -1,9 +1,22 @@
 import csv
 
+import os
+import sys
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temporary folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 #file_path = "persistence/high_scores.csv"
 
 class allTimeHighScores():
-    def __init__(self, file_path = "persistence/high_scores.csv"):
+    def __init__(self, file_path = resource_path("persistence/high_scores.csv")):
         self.file_path = file_path
 
     def add_score_to_file(self, score, time):
