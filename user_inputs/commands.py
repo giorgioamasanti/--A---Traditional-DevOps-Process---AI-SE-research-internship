@@ -29,7 +29,6 @@ def receiveInputs(commands, activePiece):
                 commands.append(userInputKeys[event.key])
 
 
-
 def executeCommands(commands, activePiece, gridState, dropperTimer, currentSessionScoreTable = None, ATHSobject = None, b_music = None, mute = False ):
     dummyPiece = copy.deepcopy(activePiece)
     dummyGrid = copy.deepcopy(gridState)
