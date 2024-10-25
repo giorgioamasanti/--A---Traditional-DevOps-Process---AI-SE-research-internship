@@ -48,11 +48,11 @@ jobs:
       - name: Build executable (windows)
         if: runner.os == 'Windows'
         run: |
-          pyinstaller --onefile --windowed \
-          --add-data "game_render:game_render" \
-          --add-data "game_state:game_state" \
-          --add-data "user_inputs:user_inputs" \
-          --add-data "sfx:sfx" \
+          pyinstaller --onefile --windowed ^
+          --add-data "game_render;game_render" ^
+          --add-data "game_state;game_state" ^
+          --add-data "user_inputs;user_inputs" ^
+          --add-data "sfx;sfx" ^
           main.py
         env:
           VERSION: ${{ github.sha }}
