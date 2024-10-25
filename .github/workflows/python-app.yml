@@ -42,6 +42,7 @@ jobs:
           --add-data "user_inputs:user_inputs" \
           --add-data "sfx:sfx" \
           --add-data "persistence:persistence" \
+          --add-data "assets:assets" \
           main.py
         env:
           VERSION: ${{ github.sha }}
@@ -55,6 +56,7 @@ jobs:
             --add-data "user_inputs;user_inputs" `
             --add-data "sfx;sfx" `
             --add-data "persistence;persistence" `
+            --add-data "assets;assets" `
             main.py
         env:
           VERSION: ${{ github.sha }}
