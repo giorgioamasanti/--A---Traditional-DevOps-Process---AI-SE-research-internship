@@ -50,19 +50,19 @@ jobs:
 
       - name: Upload artifact for Ubuntu
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: main-ubuntu
           path: dist/Tetris-A-Linux
       - name: Upload artifact for macOS
         if: matrix.os == 'macos-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: main-macos
           path: dist/Tetris-A-macos
       - name: Upload artifact for Windows
         if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: main-windows
           path: dist/Tetris-A-windows.exe
