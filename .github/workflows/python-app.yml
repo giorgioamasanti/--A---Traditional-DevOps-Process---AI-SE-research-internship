@@ -74,17 +74,17 @@ jobs:
 
     steps:
       - name: Download artifact for Ubuntu
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: main-ubuntu
           path: ./dist/
       - name: Download artifact for macOS
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: main-macos
           path: ./dist/
       - name: Download artifact for Windows
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: main-windows
           path: ./dist/
