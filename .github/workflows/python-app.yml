@@ -46,6 +46,7 @@ jobs:
           --add-data "sfx:sfx" \
           --add-data "persistence:persistence" \
           --add-data "assets:assets" \
+          --add-data "assets/music_and_sounds:assets/music_and_sounds" \
           main.py
         env:
           VERSION: ${{ github.sha }}
@@ -61,6 +62,7 @@ jobs:
             --add-data "sfx;sfx" `
             --add-data "persistence;persistence" `
             --add-data "assets;assets" `
+            --add-data "assets/music_and_sounds;assets/music_and_sounds" `
             main.py
         env:
           VERSION: ${{ github.sha }}
